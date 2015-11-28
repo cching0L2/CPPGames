@@ -12,21 +12,27 @@ class Location{
     }
     
     Location(Location currentLoc, Direction direction){
+        int snakeSize = Snake.getSnakeSize();
+        
         switch(direction){
         case UP:
-            new Location(currentLoc.getXCoor(), currentLoc.getYCoor()-1);  
+            yCoordinate=currentLoc.getYCoor()-snakeSize;
+            xCoordinate=currentLoc.getXCoor();
             break;
             
         case DOWN:
-            new Location(currentLoc.getXCoor(), currentLoc.getYCoor()+1);  
+            yCoordinate=currentLoc.getYCoor()+snakeSize;
+            xCoordinate=currentLoc.getXCoor();
             break;
         
         case LEFT:
-            new Location(currentLoc.getXCoor()-1, currentLoc.getYCoor());  
+            xCoordinate=currentLoc.getXCoor()-snakeSize; 
+            yCoordinate=currentLoc.getYCoor();
             break;
         
         case RIGHT:
-            new Location(currentLoc.getXCoor()+1, currentLoc.getYCoor());  
+            xCoordinate=currentLoc.getXCoor()+snakeSize; 
+            yCoordinate=currentLoc.getYCoor();
             break;           
         }
     }

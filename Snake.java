@@ -1,41 +1,50 @@
+import java.util.ArrayList;
 import java.util.LinkedList;
-import java.util.Queue;
+import java.util.List;
 
 class Snake{
     
-    private int INITIAL_X = 0;
-    private int INITIAL_Y = 0;
-    private final int squareSize = 10;
-    
-    private int XCoor;
-    private int YCoor;
-    
-    private GameBoard gameBoard;
-    private Queue<Location> snake;
+    static private int INITIAL_X = 0;
+    static private int INITIAL_Y = 0;
+    private final static int squareSize = 10;
+
+    //private GameBoard gameBoard;
+    static private List<Location> snake;
     
     Snake(GameBoard gameBoard){
-        this.gameBoard = gameBoard;
-        snake = new LinkedList<Location>();
+        //this.gameBoard = gameBoard;
+        snake = new ArrayList<Location>();
         snake.add(new Location(INITIAL_X, INITIAL_Y));
     }
     
-    public Location getHeadLocation(){
-        return snake.peek();
+    static public Location getHeadLocation(){
+        return snake.get(0);
+    }
+    
+    static public Location getTailLocation(){
+        return snake.get(snake.size()-1);
     }
   
-    public void grow(){
+    static public void grow(Direction dir){
+        snake.add(new Location(getTailLocation(), dir));
         //TODO implement this method 
     }
     
-    public Queue<Location> getSnake(){
-        Queue<Location> toReturn = new LinkedList<Location>();
+    static public void move(Direction dir){
+        Location prevHead = getHeadLocation();
+        snake.remove(0);
+        snake.add(0, new Location(prevHead, dir));
+    }
+    
+    static public List<Location> getSnake(){
+        List<Location> toReturn = new LinkedList<Location>();
         for(Location loc : snake){
             toReturn.add(loc);
         }
         return toReturn;
     }
     
-    public int getSnakeSize(){
+    static public int getSnakeSize(){
         return squareSize;
     }
     

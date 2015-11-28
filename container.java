@@ -1,5 +1,10 @@
-import java.awt.*;
-import javax.swing.*;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+
+import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
 
 public class container{
     private final int SIDE_LENGTH = 700;
@@ -8,9 +13,8 @@ public class container{
         
         //create new background container
         JFrame background = new JFrame("Snake Game");
-        
-        //set up the game board
         GameBoard gameBoard = new GameBoard(this);
+        KeyboardControl control = new KeyboardControl();
         
         //set up the game interface
         background.setSize(SIDE_LENGTH, SIDE_LENGTH);
@@ -25,7 +29,8 @@ public class container{
         background.setVisible(true);
         
         //adding the game board to this
-        background.getContentPane().add(gameBoard, BorderLayout.CENTER);
+        background.add(control);
+        background.add(gameBoard);
         
     }
     
