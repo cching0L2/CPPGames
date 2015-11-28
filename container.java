@@ -2,26 +2,31 @@ import java.awt.*;
 import javax.swing.*;
 
 public class container{
-    private final Color bgColor = new Color(177, 211, 222);
     private final int SIDE_LENGTH = 700;
     
     container(){
         
-        //create new gameBoard container
-        JFrame gameBoard = new JFrame("Snake Game");
+        //create new background container
+        JFrame background = new JFrame("Snake Game");
+        
+        //set up the game board
+        GameBoard gameBoard = new GameBoard(this);
         
         //set up the game interface
-        gameBoard.setSize(SIDE_LENGTH, SIDE_LENGTH);
+        background.setSize(SIDE_LENGTH, SIDE_LENGTH);
         
         //set background color of game board
-        //gameBoard.setBackground(Color.CYAN);
-        gameBoard.getContentPane().setBackground(bgColor);
+        background.getContentPane().setBackground(Color.white);
         
         //make sure the program is terminated when window is closed
-        gameBoard.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        background.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
         //make the window visible
-        gameBoard.setVisible(true);
+        background.setVisible(true);
+        
+        //adding the game board to this
+        background.getContentPane().add(gameBoard, BorderLayout.CENTER);
+        
     }
     
     public static void main(String[] args){
@@ -30,5 +35,9 @@ public class container{
                 new container();
             }
         });
+    }
+    
+    public int getSideLength(){
+        return SIDE_LENGTH;
     }
 }
