@@ -15,7 +15,7 @@ class GameBoard extends JPanel {
     private int GAME_BOARD_SIZE;
     private final Color bgColor = new Color(177, 211, 222);
     private final Color snakeColor = new Color(235, 145, 0);
-    private final int DELAY = 100;
+    private final int DELAY = 50;
     private Snake snake;
     private final Timer timer;
 
@@ -28,6 +28,10 @@ class GameBoard extends JPanel {
         timer = new Timer(DELAY, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                if(KeyboardControl.getPrevDir()==null)
+                    Snake.move(Direction.RIGHT);
+                else
+                    Snake.move(KeyboardControl.getPrevDir());
                 repaint();
             }
         });
