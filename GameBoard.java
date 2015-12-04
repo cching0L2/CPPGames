@@ -15,28 +15,40 @@ class GameBoard extends JPanel {
     private int GAME_BOARD_SIZE;
     private final Color bgColor = new Color(177, 211, 222);
     private final Color snakeColor = new Color(235, 145, 0);
-    private final int DELAY = 50;
+    private final int DELAY = 70;
     private Snake snake;
     private final Timer timer;
+    private Food food = new Food(new Location(100,100));
 
     public GameBoard(container c) {
         GAME_BOARD_SIZE = c.getSideLength();
         setBackground(bgColor);
         setPreferredSize(new Dimension(GAME_BOARD_SIZE, GAME_BOARD_SIZE));
         snake = new Snake(this);
-        
+
         timer = new Timer(DELAY, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(KeyboardControl.getPrevDir()==null)
-                    Snake.move(Direction.RIGHT);
-                else
-                    Snake.move(KeyboardControl.getPrevDir());
+                if (Snake.hitWall() | Snake.hitSelf()) {
+                    timer.stop();
+                    // System.out.println(Snake.getHeadLocation());
+                    // System.out.println("hit wall: " +Snake.hitWall());
+                    // System.out.println("hit self: "+Snake.hitSelf());
+                } else {
+                    if (KeyboardControl.getPrevDir() == null)
+                        Snake.move(Direction.RIGHT);
+                    else
+                        Snake.move(KeyboardControl.getPrevDir());
+                    // System.out.println("hit self: "+Snake.hitSelf());
+                }
                 repaint();
             }
         });
-        
         timer.start();
+    }
+
+    public Dimension getDimension() {
+        return new Dimension(GAME_BOARD_SIZE, GAME_BOARD_SIZE);
     }
 
     @Override
@@ -46,12 +58,17 @@ class GameBoard extends JPanel {
         graphics.setColor(snakeColor);
         List<Location> snakeBody = Snake.getSnake();
 
-        //draw out the body of the snake
+        // draw out the body of the snake
         for (Location loc : snakeBody) {
             Location snakeSectionLoc = loc;
             graphics.fillRect(snakeSectionLoc.getXCoor(), snakeSectionLoc.getYCoor(), Snake.getSnakeSize(),
                     Snake.getSnakeSize());
-            System.out.println(loc); //testing
+            // System.out.println(loc); //testing
         }
+        
+        graphics.setColor(Color.red);
+        Location foodLocation = food.getLocation();
+        graphics.fillRect(foodLocation.getXCoor(), foodLocation.getYCoor(), Snake.getSnakeSize(),
+                Snake.getSnakeSize());
     }
 }

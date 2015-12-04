@@ -16,4 +16,8 @@ public class Food{
         return eaten;
     }
     
+    public Location getLocation(){
+        return location;
+    }
+    
 }

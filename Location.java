@@ -45,7 +45,8 @@ class Location{
         return yCoordinate;
     }
     
-    public boolean equal(Object other){
+    @Override
+    public boolean equals(Object other){
         if(!(other instanceof Location))
             return false;
         else{
@@ -53,6 +54,12 @@ class Location{
             return loc.getXCoor()==this.getXCoor()&&loc.getYCoor()==this.getYCoor();
         }
     }
+    
+    @Override 
+    public int hashCode(){
+        return this.getXCoor()*this.getYCoor();
+    }
+    
     
     @Override
     public String toString(){
