@@ -66,9 +66,9 @@ class GameBoard extends JPanel {
             // System.out.println(loc); //testing
         }
         
-        graphics.setColor(Color.red);
-        Location foodLocation = food.getLocation();
-        graphics.fillRect(foodLocation.getXCoor(), foodLocation.getYCoor(), Snake.getSnakeSize(),
-                Snake.getSnakeSize());
+        //graphics.setColor(Color.red);
+        //Location foodLocation = food.getLocation();
+        //graphics.fillRect(foodLocation.getXCoor(), foodLocation.getYCoor(), Snake.getSnakeSize(),
+          //      Snake.getSnakeSize());
     }
 }

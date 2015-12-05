@@ -6,8 +6,14 @@ public class Helper{
      */
     
     static Location getRandomLocation (GameBoard gb){
+        int boardWidth = gb.getWidth();
+        int boardHeight = gb.getHeight();
+        
         Random randomGenerator = new Random();
-        Location random = null;
+        int randX = randomGenerator.nextInt(boardWidth);
+        int randY = randomGenerator.nextInt(boardHeight);
+        
+        Location random = new Location(randX, randY);
         return random;
     }
 }

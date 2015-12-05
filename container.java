@@ -28,9 +28,13 @@ public class container{
         //make the window visible
         background.setVisible(true);
         
+        //make the window unresizable 
+        background.setResizable(false);
+        
         //adding the game board to this
         background.add(control);
         background.add(gameBoard);
+        
         
     }
     
