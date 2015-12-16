@@ -57,8 +57,9 @@ class Snake {
         double maxWidth = boundary.getWidth();
         double maxHeight = boundary.getHeight();
 
-        if (head.getXCoor() >= (maxWidth - squareSize) || head.getXCoor() <= squareSize
-                || head.getYCoor() >= (maxHeight - squareSize * 3) || head.getYCoor() <= 0)
+        System.out.println(head.getYCoor());
+        if (head.getXCoor() >= maxWidth || head.getXCoor() <= 0
+                || head.getYCoor() >= (maxHeight - squareSize) || head.getYCoor() <= -squareSize)
             return true;
 
         else
