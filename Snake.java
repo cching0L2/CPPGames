@@ -9,7 +9,7 @@ class Snake {
 
     static private int INITIAL_X = 400;
     static private int INITIAL_Y = 500;
-    private final static int squareSize = 12;
+    private final static int squareSize = GameBoard.SQUARE_SIZE;
     private final static int INITIAL_LENGTH = 20;
 
     static private GameBoard gameBoard;
@@ -29,6 +29,17 @@ class Snake {
 
     static public Location getTailLocation() {
         return snake.get(snake.size() - 1);
+    }
+
+    static public boolean eat() {
+        if (Food.getLocation().getXCoor()<getHeadLocation().getXCoor()+12 &&
+                Food.getLocation().getXCoor()>getHeadLocation().getXCoor()-12 &&
+                Food.getLocation().getYCoor()<getHeadLocation().getYCoor()+12 &&
+                Food.getLocation().getYCoor()>getHeadLocation().getYCoor()-12) {
+            Food.eaten();
+            return true;
+        }
+        return false;
     }
 
     static public void grow(Direction dir) {
@@ -57,9 +68,8 @@ class Snake {
         double maxWidth = boundary.getWidth();
         double maxHeight = boundary.getHeight();
 
-        System.out.println(head.getYCoor());
-        if (head.getXCoor() >= maxWidth || head.getXCoor() <= 0
-                || head.getYCoor() >= (maxHeight - squareSize) || head.getYCoor() <= -squareSize)
+        if (head.getXCoor() >= maxWidth || head.getXCoor() <= 0 || head.getYCoor() >= (maxHeight - squareSize)
+                || head.getYCoor() <= -squareSize)
             return true;
 
         else
@@ -68,16 +78,12 @@ class Snake {
 
     static public Boolean hitSelf() {
         Set<Location> snakeNoDup = new HashSet<Location>();
-        for(Location loc : snake){
-            if(!snakeNoDup.contains(loc))
-            snakeNoDup.add(loc);
+        for (Location loc : snake) {
+            if (!snakeNoDup.contains(loc))
+                snakeNoDup.add(loc);
         }
-        return !(snakeNoDup.size()==snake.size());
+        return !(snakeNoDup.size() == snake.size());
 
-    }
-
-    static public int getSnakeSize() {
-        return squareSize;
     }
 
 }

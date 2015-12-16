@@ -1,3 +1,4 @@
+import java.awt.Dimension;
 import java.util.Random;
 
 public class Helper{
@@ -5,15 +6,19 @@ public class Helper{
      * where all the helper methods live
      */
     
-    static Location getRandomLocation (GameBoard gb){
-        int boardWidth = gb.getWidth();
-        int boardHeight = gb.getHeight();
+    static Location getRandomLocation (Dimension gameBoardDimension){
+        int boardWidth = gameBoardDimension.width;
+        int boardHeight = gameBoardDimension.height;
+        Location random;
         
         Random randomGenerator = new Random();
-        int randX = randomGenerator.nextInt(boardWidth);
+        int randX = randomGenerator.nextInt(boardWidth-GameBoard.SQUARE_SIZE);
         int randY = randomGenerator.nextInt(boardHeight);
         
-        Location random = new Location(randX, randY);
+        do{
+            random = new Location(randX, randY);
+        }while(Snake.getSnake().contains(random) | Food.getLocation().equals(random));
+        
         return random;
     }
 }

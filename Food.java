@@ -1,23 +1,35 @@
 public class Food{
     
-    Location location;
-    Boolean eaten = false;
-    Boolean isPoison = false;
+    private static Location location;
+    private static Boolean eaten = false;
+    private static final Location initialLoc = new Location(440, 500);
     
     public Food(Location loc){
-        this.location = loc;
+        location = loc;
     }
     
-    public void setEaten(Boolean b){
+    public static void initialize(){
+        location = initialLoc;
+    }
+    
+    public static void setEaten(Boolean b){
         eaten = b;
     }
     
-    public boolean isEaten(){
+    public static void eaten(){
+        eaten = true;
+    }
+    
+    public static boolean isEaten(){
         return eaten;
     }
     
-    public Location getLocation(){
+    public static Location getLocation(){
         return location;
+    }
+    
+    public static void generate(GameBoard gb){
+        location = Helper.getRandomLocation(gb.getDimension());
     }
     
 }

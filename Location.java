@@ -12,7 +12,7 @@ class Location{
     }
     
     Location(Location currentLoc, Direction direction){
-        int snakeSize = Snake.getSnakeSize();
+        int snakeSize = GameBoard.SQUARE_SIZE;
         
         switch(direction){
         case UP:

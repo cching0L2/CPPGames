@@ -12,34 +12,31 @@ class GameBoard extends JPanel {
 
     private static final long serialVersionUID = -7691695474867529284L;
 
-    private int GAME_BOARD_SIZE;
+    private final int GAME_BOARD_SIZE;
     private final Color bgColor = new Color(177, 211, 222);
     private final Color snakeColor = new Color(235, 145, 0);
+    public static final int SQUARE_SIZE = 12;
     private final int DELAY = 70;
     private Snake snake;
     private final Timer timer;
-    private Food food = new Food(new Location(100,100));
 
     public GameBoard(container c) {
         GAME_BOARD_SIZE = c.getSideLength();
         setBackground(bgColor);
         setPreferredSize(new Dimension(GAME_BOARD_SIZE, GAME_BOARD_SIZE));
         snake = new Snake(this);
+        Food.initialize();
 
         timer = new Timer(DELAY, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (Snake.hitWall() | Snake.hitSelf()) {
                     timer.stop();
-                    // System.out.println(Snake.getHeadLocation());
-                    // System.out.println("hit wall: " +Snake.hitWall());
-                    // System.out.println("hit self: "+Snake.hitSelf());
                 } else {
                     if (KeyboardControl.getPrevDir() == null)
                         Snake.move(Direction.RIGHT);
                     else
                         Snake.move(KeyboardControl.getPrevDir());
-                    // System.out.println("hit self: "+Snake.hitSelf());
                 }
                 repaint();
             }
@@ -61,14 +58,19 @@ class GameBoard extends JPanel {
         // draw out the body of the snake
         for (Location loc : snakeBody) {
             Location snakeSectionLoc = loc;
-            graphics.fillRect(snakeSectionLoc.getXCoor(), snakeSectionLoc.getYCoor(), Snake.getSnakeSize(),
-                    Snake.getSnakeSize());
+            graphics.fillRect(snakeSectionLoc.getXCoor(), snakeSectionLoc.getYCoor(), SQUARE_SIZE,
+                    SQUARE_SIZE);
             // System.out.println(loc); //testing
         }
         
-        //graphics.setColor(Color.red);
-        //Location foodLocation = food.getLocation();
-        //graphics.fillRect(foodLocation.getXCoor(), foodLocation.getYCoor(), Snake.getSnakeSize(),
-          //      Snake.getSnakeSize());
+        graphics.setColor(Color.red);
+        
+        if(Snake.eat()){
+            Food.generate(this);
+            System.out.println("generated, new location: "+Food.getLocation());
+        }
+        Location foodLocation = Food.getLocation();
+        graphics.fillRect(foodLocation.getXCoor(), foodLocation.getYCoor(), SQUARE_SIZE,
+                SQUARE_SIZE);
     }
 }
