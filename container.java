@@ -3,7 +3,7 @@ import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
 public class container{
-    private final int SIDE_LENGTH = 500;
+    private final int SIDE_LENGTH = GameBoard.NUM_GRID*GameBoard.SQUARE_SIZE;
     
     container(){
         

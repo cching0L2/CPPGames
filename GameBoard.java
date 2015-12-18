@@ -17,6 +17,7 @@ class GameBoard extends JPanel {
     private final Color SNAKE_COLOR = new Color(235, 145, 0);
     private final Color FOOD_COLOR = Color.red;
     public static final int SQUARE_SIZE = 12;
+    public static final int NUM_GRID = 40;
     private final int DELAY = 70;
     private final Direction INITIAL_DIRECTION = Direction.RIGHT;
     private final Timer timer;
@@ -34,10 +35,24 @@ class GameBoard extends JPanel {
                 if (Snake.hitWall() | Snake.hitSelf()) {
                     timer.stop();
                 } else {
-                    if (KeyboardControl.getPrevDir() == null)
-                        Snake.move(INITIAL_DIRECTION); //moves to the right at the beginning
-                    else
-                        Snake.move(KeyboardControl.getPrevDir());
+                    if (KeyboardControl.getPrevDir() == null) {
+                        Snake.move(INITIAL_DIRECTION); // moves to the right at
+                                                       // the beginning
+                        KeyboardControl.setPrevDir(INITIAL_DIRECTION);
+                        KeyboardControl.setDirection(INITIAL_DIRECTION);
+                    } else {
+                        // if no new key is pressed, continue moving in previous
+                        // direction
+                        if (KeyboardControl.getPrevDir() == KeyboardControl.getDirection()) {
+                            Snake.move(KeyboardControl.getPrevDir());
+                        } else {
+                            Snake.move(KeyboardControl.getDirection());
+                            KeyboardControl.setPrevDir(KeyboardControl.getDirection());
+                        }
+                    }
+                }
+                if(Snake.eat()){
+                    Snake.grow();
                 }
                 repaint();
             }
@@ -59,19 +74,15 @@ class GameBoard extends JPanel {
         // draw out the body of the snake
         for (Location loc : snakeBody) {
             Location snakeSectionLoc = loc;
-            graphics.fillRect(snakeSectionLoc.getXCoor(), snakeSectionLoc.getYCoor(), SQUARE_SIZE,
-                    SQUARE_SIZE);
-            // System.out.println(loc); //testing
+            graphics.fillRect(snakeSectionLoc.getXCoor(), snakeSectionLoc.getYCoor(), SQUARE_SIZE, SQUARE_SIZE);
         }
-        
+
         graphics.setColor(FOOD_COLOR);
-        
-        if(Snake.eat()){
+
+        if (Snake.eat()) {
             Food.generate(this);
-            System.out.println("generated, new location: "+Food.getLocation());
         }
         Location foodLocation = Food.getLocation();
-        graphics.fillRect(foodLocation.getXCoor(), foodLocation.getYCoor(), SQUARE_SIZE,
-                SQUARE_SIZE);
+        graphics.fillRect(foodLocation.getXCoor(), foodLocation.getYCoor(), SQUARE_SIZE, SQUARE_SIZE);
     }
 }

@@ -7,13 +7,14 @@ import java.util.Set;
 
 class Snake {
 
-    static private int INITIAL_X = 200;
-    static private int INITIAL_Y = 300;
+    static private int INITIAL_X = GameBoard.SQUARE_SIZE*20;
+    static private int INITIAL_Y = GameBoard.SQUARE_SIZE*15;
     private final static int squareSize = GameBoard.SQUARE_SIZE;
     private final static int INITIAL_LENGTH = 10;
 
     static private GameBoard gameBoard;
     static private List<Location> snake;
+    static private Location lastTailPos = null;
 
     Snake() {
     }
@@ -45,16 +46,16 @@ class Snake {
         return false;
     }
 
-    static public void grow(Direction dir) {
-        snake.add(new Location(getTailLocation(), dir));
-        // TODO implement this method
+    static public void grow() {
+        snake.add(lastTailPos);
     }
 
     static public void move(Direction dir) {
         Location prevHead = getHeadLocation();
         Location newLoc = new Location(prevHead, dir);
         snake.add(0, newLoc);
-        snake.remove(snake.size() - 1);
+        lastTailPos = snake.get(snake.size()-1);
+        snake.remove(lastTailPos);
     }
 
     static public List<Location> getSnake() {

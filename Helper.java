@@ -7,13 +7,11 @@ public class Helper{
      */
     
     static Location getRandomLocation (Dimension gameBoardDimension){
-        int boardWidth = gameBoardDimension.width;
-        int boardHeight = gameBoardDimension.height;
         Location random;
         
         Random randomGenerator = new Random();
-        int randX = randomGenerator.nextInt(boardWidth-GameBoard.SQUARE_SIZE);
-        int randY = randomGenerator.nextInt(boardHeight-GameBoard.SQUARE_SIZE*2);
+        int randX = randomGenerator.nextInt(GameBoard.NUM_GRID) * GameBoard.SQUARE_SIZE;
+        int randY = randomGenerator.nextInt(GameBoard.NUM_GRID) * GameBoard.SQUARE_SIZE;
         
         do{
             random = new Location(randX, randY);
