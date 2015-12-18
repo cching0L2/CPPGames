@@ -31,7 +31,6 @@ class KeyboardControl extends JPanel{
         public void keyPressed(KeyEvent e) {
             //System.out.println("key pressed: "+KeyEvent.getKeyText(e.getKeyCode())+"  "+e.getKeyCode());
             int keyCode = e.getKeyCode();
-            Boolean dirChanged = false;
             Direction direction = null;
             
             switch(keyCode){
@@ -48,11 +47,8 @@ class KeyboardControl extends JPanel{
                 direction = Direction.DOWN;
                 break;
             }
-            
-            if(direction != prevDir)
-                dirChanged = true;
            
-            if(!Snake.hitWall() && !Snake.hitSelf())
+            if(!Snake.hitWall() && !Snake.hitSelf() && !(prevDir==direction))
                 Snake.move(direction);
             prevDir = direction;
         }

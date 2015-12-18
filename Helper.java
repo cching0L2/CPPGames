@@ -13,7 +13,7 @@ public class Helper{
         
         Random randomGenerator = new Random();
         int randX = randomGenerator.nextInt(boardWidth-GameBoard.SQUARE_SIZE);
-        int randY = randomGenerator.nextInt(boardHeight);
+        int randY = randomGenerator.nextInt(boardHeight-GameBoard.SQUARE_SIZE*2);
         
         do{
             random = new Location(randX, randY);

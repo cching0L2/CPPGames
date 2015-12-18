@@ -1,13 +1,9 @@
-import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
 public class container{
-    private final int SIDE_LENGTH = 700;
+    private final int SIDE_LENGTH = 500;
     
     container(){
         
@@ -28,7 +24,7 @@ public class container{
         //make the window visible
         background.setVisible(true);
         
-        //make the window unresizable 
+        //make the window not resizable 
         background.setResizable(false);
         
         //adding the game board to this

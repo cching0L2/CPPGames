@@ -7,15 +7,18 @@ import java.util.Set;
 
 class Snake {
 
-    static private int INITIAL_X = 400;
-    static private int INITIAL_Y = 500;
+    static private int INITIAL_X = 200;
+    static private int INITIAL_Y = 300;
     private final static int squareSize = GameBoard.SQUARE_SIZE;
-    private final static int INITIAL_LENGTH = 20;
+    private final static int INITIAL_LENGTH = 10;
 
     static private GameBoard gameBoard;
     static private List<Location> snake;
 
-    Snake(GameBoard game_board) {
+    Snake() {
+    }
+    
+    static public void initialize(GameBoard game_board){
         gameBoard = game_board;
         snake = new ArrayList<Location>();
         for (int i = 0; i < INITIAL_LENGTH; i++) {

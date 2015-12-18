@@ -2,7 +2,7 @@ public class Food{
     
     private static Location location;
     private static Boolean eaten = false;
-    private static final Location initialLoc = new Location(440, 500);
+    private static final Location initialLoc = new Location(50, 50);
     
     public Food(Location loc){
         location = loc;

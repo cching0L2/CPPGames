@@ -14,17 +14,18 @@ class GameBoard extends JPanel {
 
     private final int GAME_BOARD_SIZE;
     private final Color bgColor = new Color(177, 211, 222);
-    private final Color snakeColor = new Color(235, 145, 0);
+    private final Color SNAKE_COLOR = new Color(235, 145, 0);
+    private final Color FOOD_COLOR = Color.red;
     public static final int SQUARE_SIZE = 12;
     private final int DELAY = 70;
-    private Snake snake;
+    private final Direction INITIAL_DIRECTION = Direction.RIGHT;
     private final Timer timer;
 
     public GameBoard(container c) {
         GAME_BOARD_SIZE = c.getSideLength();
         setBackground(bgColor);
         setPreferredSize(new Dimension(GAME_BOARD_SIZE, GAME_BOARD_SIZE));
-        snake = new Snake(this);
+        Snake.initialize(this);
         Food.initialize();
 
         timer = new Timer(DELAY, new ActionListener() {
@@ -34,7 +35,7 @@ class GameBoard extends JPanel {
                     timer.stop();
                 } else {
                     if (KeyboardControl.getPrevDir() == null)
-                        Snake.move(Direction.RIGHT);
+                        Snake.move(INITIAL_DIRECTION); //moves to the right at the beginning
                     else
                         Snake.move(KeyboardControl.getPrevDir());
                 }
@@ -52,7 +53,7 @@ class GameBoard extends JPanel {
     public void paintComponent(Graphics graphics) {
         super.paintComponent(graphics);
 
-        graphics.setColor(snakeColor);
+        graphics.setColor(SNAKE_COLOR);
         List<Location> snakeBody = Snake.getSnake();
 
         // draw out the body of the snake
@@ -63,7 +64,7 @@ class GameBoard extends JPanel {
             // System.out.println(loc); //testing
         }
         
-        graphics.setColor(Color.red);
+        graphics.setColor(FOOD_COLOR);
         
         if(Snake.eat()){
             Food.generate(this);
