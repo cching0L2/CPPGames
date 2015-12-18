@@ -12,18 +12,19 @@ class GameBoard extends JPanel {
 
     private static final long serialVersionUID = -7691695474867529284L;
 
-    private final int GAME_BOARD_SIZE;
+    public static final int SQUARE_SIZE = 12;
+    public static final int NUM_GRID = 40;
+    private static final int GAME_BOARD_SIZE = NUM_GRID * SQUARE_SIZE;
+    
     private final Color bgColor = new Color(177, 211, 222);
     private final Color SNAKE_COLOR = new Color(235, 145, 0);
     private final Color FOOD_COLOR = Color.red;
-    public static final int SQUARE_SIZE = 12;
-    public static final int NUM_GRID = 40;
+    
     private final int DELAY = 70;
     private final Direction INITIAL_DIRECTION = Direction.RIGHT;
     private final Timer timer;
 
-    public GameBoard(container c) {
-        GAME_BOARD_SIZE = c.getSideLength();
+    public GameBoard() {
         setBackground(bgColor);
         setPreferredSize(new Dimension(GAME_BOARD_SIZE, GAME_BOARD_SIZE));
         Snake.initialize(this);
@@ -60,7 +61,7 @@ class GameBoard extends JPanel {
         timer.start();
     }
 
-    public Dimension getDimension() {
+    public static Dimension getDimension() {
         return new Dimension(GAME_BOARD_SIZE, GAME_BOARD_SIZE);
     }
 

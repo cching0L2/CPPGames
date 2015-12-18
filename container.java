@@ -1,19 +1,23 @@
+import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
+
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
-public class container{
-    private final int SIDE_LENGTH = GameBoard.NUM_GRID*GameBoard.SQUARE_SIZE;
+public class Container{
+    private final Dimension dimension = GameBoard.getDimension();
     
-    container(){
+    Container(){
         
         //create new background container
         JFrame background = new JFrame("Snake Game");
-        GameBoard gameBoard = new GameBoard(this);
+        GameBoard gameBoard = new GameBoard();
+        Bottom bottom = new Bottom();
         KeyboardControl control = new KeyboardControl();
         
         //set up the game interface
-        background.setSize(SIDE_LENGTH, SIDE_LENGTH);
+        background.setSize(new Dimension(dimension.width,dimension.height+bottom.getHeight()));
         
         //set background color of game board
         background.getContentPane().setBackground(Color.white);
@@ -25,11 +29,12 @@ public class container{
         background.setVisible(true);
         
         //make the window not resizable 
-        background.setResizable(false);
+        background.setResizable(true);
         
         //adding the game board to this
         background.add(control);
         background.add(gameBoard);
+        background.add(bottom, BorderLayout.SOUTH);
         
         
     }
@@ -37,12 +42,8 @@ public class container{
     public static void main(String[] args){
         SwingUtilities.invokeLater(new Runnable(){
             public void run(){
-                new container();
+                new Container();
             }
         });
-    }
-    
-    public int getSideLength(){
-        return SIDE_LENGTH;
     }
 }
