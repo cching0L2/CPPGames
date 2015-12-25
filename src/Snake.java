@@ -12,7 +12,6 @@ class Snake {
     private final static int squareSize = GameBoard.SQUARE_SIZE;
     private final static int INITIAL_LENGTH = 10;
 
-    static private GameBoard gameBoard;
     static private List<Location> snake;
     static private Location lastTailPos = null;
 
@@ -20,11 +19,13 @@ class Snake {
     }
     
     static public void initialize(GameBoard game_board){
-        gameBoard = game_board;
         snake = new ArrayList<Location>();
         for (int i = 0; i < INITIAL_LENGTH; i++) {
             snake.add(new Location(INITIAL_X - i * squareSize, INITIAL_Y));
         }
+    }
+    static public int getInitialLength(){
+        return INITIAL_LENGTH;
     }
 
     static public Location getHeadLocation() {
@@ -67,12 +68,12 @@ class Snake {
     }
 
     static public Boolean hitWall() {
-        Dimension boundary = gameBoard.getDimension();
+        Dimension boundary = GameBoard.getDimension();
         Location head = getHeadLocation();
         double maxWidth = boundary.getWidth();
         double maxHeight = boundary.getHeight();
 
-        if (head.getXCoor() >= maxWidth || head.getXCoor() <= 0 || head.getYCoor() >= (maxHeight - squareSize)
+        if (head.getXCoor() >= maxWidth || head.getXCoor() < 0 || head.getYCoor() >= (maxHeight - squareSize)
                 || head.getYCoor() <= -squareSize)
             return true;
 
@@ -88,6 +89,10 @@ class Snake {
         }
         return !(snakeNoDup.size() == snake.size());
 
+    }
+    
+    static public void clear(){
+        snake.clear();
     }
 
 }

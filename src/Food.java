@@ -2,7 +2,7 @@ public class Food{
     
     private static Location location;
     private static Boolean eaten = false;
-    private static final Location initialLoc = new Location(50, 50);
+    private static final Location initialLoc = new Location(GameBoard.SQUARE_SIZE*5, GameBoard.SQUARE_SIZE*5);
     
     public Food(Location loc){
         location = loc;
@@ -28,8 +28,8 @@ public class Food{
         return location;
     }
     
-    public static void generate(GameBoard gb){
-        location = Helper.getRandomLocation(gb.getDimension());
+    public static void generate(){
+        location = Helper.getRandomLocation(GameBoard.getDimension());
     }
     
 }
