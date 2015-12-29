@@ -8,6 +8,7 @@ class KeyboardControl extends JPanel {
     private static final long serialVersionUID = 4122465017629656635L;
     static private Direction prevDir = null;
     static private Direction direction = null;
+    static private Boolean pause = false;
 
     KeyboardControl() {
         KeyListener listener = new getKeyInput();
@@ -30,6 +31,9 @@ class KeyboardControl extends JPanel {
     static public Direction getDirection() {
         return direction;
     }
+    static public Boolean pause(){
+        return pause;
+    }
 
     public class getKeyInput implements KeyListener {
         private final int LEFT_KEY = 37;
@@ -44,7 +48,12 @@ class KeyboardControl extends JPanel {
         @Override
         public void keyPressed(KeyEvent e) {
             int keyCode = e.getKeyCode();
-
+            
+            if(keyCode == 32){
+                pause = true;
+            }
+            else pause = false;
+            
             switch (keyCode) {
             case (LEFT_KEY):
                 direction = Direction.LEFT;

@@ -14,7 +14,7 @@ public class GameBoard extends JPanel {
     private static final long serialVersionUID = -7691695474867529284L;
 
     public static final int SQUARE_SIZE = 12;
-    public static final int NUM_GRID = 30;
+    public static final int NUM_GRID = 50;
     private static final int GAME_BOARD_SIZE = NUM_GRID * SQUARE_SIZE;
 
     private final Color bgColor = new Color(177, 211, 222);
@@ -44,11 +44,10 @@ public class GameBoard extends JPanel {
     private void step(){
         if (Snake.hitWall() | Snake.hitSelf()) {
             setBackground(Color.gray);
-            timer.stop();
+            Snake.setDead(true);
         } else {
             if (KeyboardControl.getPrevDir() == null) {
-                Snake.move(INITIAL_DIRECTION); // moves to the right at
-                                               // the beginning
+                Snake.move(INITIAL_DIRECTION); 
                 KeyboardControl.setPrevDir(INITIAL_DIRECTION);
                 KeyboardControl.setDirection(INITIAL_DIRECTION);
             } else {
@@ -79,7 +78,7 @@ public class GameBoard extends JPanel {
         graphics.setColor(SNAKE_COLOR);
         List<Location> snakeBody = Snake.getSnake();
 
-        if (timer.isRunning()) {
+        if (!Snake.isDead()) {
             // draw out the body of the snake
             for (Location loc : snakeBody) {
                 Location snakeSectionLoc = loc;
@@ -109,5 +108,13 @@ public class GameBoard extends JPanel {
             setFont(font);
             graphics.drawString("GAME OVER", (int)(GAME_BOARD_SIZE/4.5), GAME_BOARD_SIZE/2);
         }
+    }
+    
+    public void start(){
+        timer.restart();
+    }
+    
+    public void stop(){
+        timer.stop();
     }
 }

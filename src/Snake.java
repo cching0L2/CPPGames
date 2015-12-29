@@ -14,6 +14,7 @@ class Snake {
 
     static private List<Location> snake;
     static private Location lastTailPos = null;
+    static private Boolean isDead = false;
 
     Snake() {
     }
@@ -89,6 +90,14 @@ class Snake {
         }
         return !(snakeNoDup.size() == snake.size());
 
+    }
+    
+    static public void setDead(Boolean dead){
+        isDead = dead;
+    }
+    
+    static public Boolean isDead(){
+        return isDead;
     }
     
     static public void clear(){
