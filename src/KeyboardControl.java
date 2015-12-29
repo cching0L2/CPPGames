@@ -9,11 +9,13 @@ class KeyboardControl extends JPanel {
     static private Direction prevDir = null;
     static private Direction direction = null;
     static private Boolean pause = false;
+    private GameBoard gameBoard;
 
-    KeyboardControl() {
+    KeyboardControl(GameBoard gb) {
         KeyListener listener = new getKeyInput();
         addKeyListener(listener);
         setFocusable(true);
+        gameBoard = gb;
     }
 
     static public void setPrevDir(Direction previous_direction) {
@@ -31,7 +33,8 @@ class KeyboardControl extends JPanel {
     static public Direction getDirection() {
         return direction;
     }
-    static public Boolean pause(){
+
+    static public Boolean pause() {
         return pause;
     }
 
@@ -48,34 +51,35 @@ class KeyboardControl extends JPanel {
         @Override
         public void keyPressed(KeyEvent e) {
             int keyCode = e.getKeyCode();
-            
-            if(keyCode == 32){
-                pause = true;
-            }
-            else pause = false;
-            
-            switch (keyCode) {
-            case (LEFT_KEY):
-                direction = Direction.LEFT;
-                break;
-            case (RIGHT_KEY):
-                direction = Direction.RIGHT;
-                break;
-            case (UP_KEY):
-                direction = Direction.UP;
-                break;
-            case (DOWN_KEY):
-                direction = Direction.DOWN;
-                break;
+
+            if (gameBoard.isRunning()) {
+                if (keyCode == 32) {
+                    pause = true;
+                } else
+                    pause = false;
+
+                switch (keyCode) {
+                case (LEFT_KEY):
+                    direction = Direction.LEFT;
+                    break;
+                case (RIGHT_KEY):
+                    direction = Direction.RIGHT;
+                    break;
+                case (UP_KEY):
+                    direction = Direction.UP;
+                    break;
+                case (DOWN_KEY):
+                    direction = Direction.DOWN;
+                    break;
+                }
             }
 
-            /*
-             * this method of controlling the snake has better performance
-             * ->more responsive
-             * but implementing this allows both the timer 
-             * and the keyboard control to control the direction
-             * of the snake
-             */
+            // this method of controlling the snake has better performance
+            // ->more responsive
+            // but implementing this allows both the timer
+            // and the keyboard control to control the direction
+            // of the snake
+
             // if(!Snake.hitWall() && !Snake.hitSelf() && !(prevDir==direction))
             // Snake.move(direction);
             // prevDir = direction;

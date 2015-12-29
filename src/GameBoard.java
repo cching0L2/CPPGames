@@ -25,6 +25,8 @@ public class GameBoard extends JPanel {
     private final int DELAY = 50;
     private final Direction INITIAL_DIRECTION = Direction.RIGHT;
     private final Timer timer;
+    
+    private boolean isRunning = true;
 
     public GameBoard() {
         setBackground(bgColor);
@@ -116,5 +118,13 @@ public class GameBoard extends JPanel {
     
     public void stop(){
         timer.stop();
+    }
+    
+    public boolean isRunning(){
+        return isRunning;
+    }
+    
+    public void setRunning(Boolean running){
+        isRunning = running;
     }
 }

@@ -3,7 +3,6 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -19,15 +18,13 @@ public class Container{
     private final JButton pauseButton;
     private final JButton quitButton;
     
-    private Boolean running = true;
-    
     Container(){
         
         //create new background container
         background = new JFrame("Snake Game");
         GameBoard gameBoard = new GameBoard();
-        //Bottom bottom = new Bottom(this, gameBoard);
-        KeyboardControl control = new KeyboardControl();
+        
+        KeyboardControl control = new KeyboardControl(gameBoard);
         JPanel bottom = new JPanel(new BorderLayout());
         
         background.setSize(new Dimension(GB_WIDTH,GB_HEIGHT+BOTTOM_HEIGHT));
@@ -39,7 +36,6 @@ public class Container{
         
         background.add(control);
         background.add(gameBoard, BorderLayout.CENTER);
-        //background.add(bottom, BorderLayout.SOUTH);
         
         pauseButton = new JButton("Pause");
         quitButton = new JButton("Quit");
@@ -47,7 +43,8 @@ public class Container{
         bottom.add(quitButton, BorderLayout.EAST);
         pauseButton.setFocusable(false);
         quitButton.setFocusable(false);
-
+        
+        bottom.setBackground(Color.white);
         background.getContentPane().add(bottom, BorderLayout.SOUTH);
         
         if(Snake.isDead()) pauseButton.setEnabled(false);
@@ -56,7 +53,7 @@ public class Container{
             @Override
             public void actionPerformed(ActionEvent e) {
                 
-                if (running) {
+                if (gameBoard.isRunning()) {
                     gameBoard.stop();
                     pauseButton.setText("Start");
                     
@@ -64,7 +61,7 @@ public class Container{
                     gameBoard.start();
                     pauseButton.setText("Pause");
                 }
-                running = !running;
+                gameBoard.setRunning(!gameBoard.isRunning());
             }
         });
         
