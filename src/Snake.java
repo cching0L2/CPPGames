@@ -37,12 +37,11 @@ class Snake {
         return snake.get(snake.size() - 1);
     }
 
-    static public boolean eat() {
-        if (Food.getLocation().getXCoor()<getHeadLocation().getXCoor()+12 &&
-                Food.getLocation().getXCoor()>getHeadLocation().getXCoor()-12 &&
-                Food.getLocation().getYCoor()<getHeadLocation().getYCoor()+12 &&
-                Food.getLocation().getYCoor()>getHeadLocation().getYCoor()-12) {
+    static public boolean eat() { 
+        if(Food.getLocation().getXCoor()==getHeadLocation().getXCoor() && 
+                Food.getLocation().getYCoor()==getHeadLocation().getYCoor()){
             Food.eaten();
+            
             return true;
         }
         return false;
