@@ -19,7 +19,6 @@ public class Container {
     private final JFrame background;
     private final JButton pauseButton;
     private final JButton quitButton;
-    private final JButton restartButton;
     private final JLabel score;
 
     Container() {
@@ -43,11 +42,9 @@ public class Container {
 
         pauseButton = new JButton("Pause");
         quitButton = new JButton("Quit");
-        restartButton = new JButton("Restart");
         bottom.add(pauseButton, BorderLayout.WEST);
         
         bottom.add(quitButton, BorderLayout.EAST);
-        restartButton.setFocusable(false);
         pauseButton.setFocusable(false);
         quitButton.setFocusable(false);
 
@@ -64,9 +61,6 @@ public class Container {
         pauseButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
-                restartButton.setEnabled(false);
-                restartButton.setVisible(false);
 
                 if (gameBoard.isRunning()) {
                     gameBoard.stop();
